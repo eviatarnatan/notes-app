@@ -3,7 +3,7 @@ import { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useHistory } from "react-router";
 import setToken from "../userActions";
-import './formStyle.css'
+import '../pages/formStyle.css';
 
 const useStyles = makeStyles((theme) => ({
     formControl: {
@@ -14,25 +14,42 @@ const useStyles = makeStyles((theme) => ({
       marginTop: theme.spacing(2),
     },
   }));
-export default function AddNote(param) {
+export default function NoteForm(param) {
     const classes = useStyles();
 
     const token = useSelector((state) => {
         return state.user.token;
     });
 
+    const title = useSelector((state) => {
+		return state.note.title;
+	})
+    const body = useSelector((state) => {
+		return state.note.body;
+	})
+    const priority = useSelector((state) => {
+		return state.note.priority;
+	})
+    const color = useSelector((state) => {
+		return state.note.color;
+	})
+    const isRead = useSelector((state) => {
+		return state.note.isRead;
+	})
     //for testing
     const dispatch = useDispatch();
     //dispatch(setToken("-1591360440"));
 
     const history = useHistory();
     //end for testing
+
+
     const [values, setValues] = useState({
-        title: "",
-        body: "",
-        color: "",
-        priority: "",
-        isRead: ""
+        title: title,
+        body: body,
+        color: color,
+        priority: priority,
+        isRead: isRead
     })
 
 
@@ -91,6 +108,44 @@ export default function AddNote(param) {
         })
         //getting back to the main notes page
         //goback leaves trace, so used push instead.
+        history.push("../notesMain");
+
+    }
+
+
+    const handleUpdate = async(event) => {
+        event.preventDefault();
+
+        let isValid = true;
+        let newErrors = {title: null, body: null};
+        if(!values.title) {
+            isValid = false;
+            newErrors = {
+                ...newErrors,
+                title: "Empty title"
+            }
+        }
+        setErrors(newErrors);
+        if(!isValid) {
+            return;
+        }
+
+        const response = await fetch (
+            'http://localhost:8080/notesManager/update', 
+            {
+                method:'PUT',
+                body: JSON.stringify(values),
+                headers: {
+                    'Content-Type' : 'application/json',
+                    'Authorization': `Bearer ${token}`
+                    //'Access-Control-Allow-Origin': '*',
+                    //'Access-Control-Allow-Methods': 'POST',
+                    //'Access-Control-Allow-Headers': 'Content-Type'
+                }
+
+
+        })
+
         history.push("../notesMain");
 
     }

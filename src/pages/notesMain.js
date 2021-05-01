@@ -3,7 +3,7 @@ import AddIcon from '@material-ui/icons/Add';
 import { Button, Container, Divider, IconButton, List, ListItem, ListItemIcon, ListItemText, makeStyles } from "@material-ui/core";
 import DeleteIcon from '@material-ui/icons/Delete';
 import { useEffect, useState } from "react";
-import AddNote from "./addNote";
+import NoteForm from "../components/noteForm";
 import { useHistory, useLocation } from "react-router";
 import InboxIcon from '@material-ui/icons/Inbox';
 import DraftsIcon from '@material-ui/icons/Drafts';
@@ -81,7 +81,14 @@ export default function NotesMain() {
 
     //see later if you need event
     const handleAddNote = () => {
-        history.push("/notesMain/addNote");
+      console.log("Add me!");
+      //removing note details, to be able to add a new note
+      noteDispatch(setTitle(""));
+      noteDispatch(setBody(""));
+      noteDispatch(setPriority(""));
+      noteDispatch(setColor(""));
+      noteDispatch(setIsRead(""));
+        history.push("/notes-app/notesMain/addNote");
     }
 
     const handleEditNote = (noteItem) => {
@@ -92,6 +99,7 @@ export default function NotesMain() {
       noteDispatch(setPriority(noteItem.priority));
       noteDispatch(setColor(noteItem.color));
       noteDispatch(setIsRead(noteItem.isRead));
+      history.push("/notes-app/notesMain/editNote");
     }
 
     useEffect(

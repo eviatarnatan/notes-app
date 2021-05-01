@@ -79,7 +79,7 @@ export default function Register() {
         alert("Registered Successfuly!");
         //var token = dataJson.token;
         //console.log("let's try to pring the token " + token);
-        history.push("/");
+        history.push("/notes-app");
 
     }
 

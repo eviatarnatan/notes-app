@@ -28,12 +28,12 @@ export default function Header() {
 					<Box className="flex" >
 					<ul className="header-class">
 						<li >
-							<Link to="/">
+							<Link to="/notes-app">
 								Home
 							</Link>
 						</li>
 						<li>
-							<Link to="/register">
+							<Link to="/notes-app/register">
 								Register
 							</Link>
 						</li>

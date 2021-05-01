@@ -81,7 +81,7 @@ export default function Login() {
         //putting in the store the username and token
         dispatch(setUsername(data.username))
         dispatch(setToken(data.token))
-        history.push("/notesMain");
+        history.push("/notes-app/notesMain");
 
     }
 

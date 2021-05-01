@@ -7,27 +7,27 @@ import  { Route, Switch } from 'react-router-dom';
 import Register from './pages/Register';
 import Error404 from './pages/Error404';
 import NotesMain from './pages/notesMain';
-import AddNote from './pages/addNote';
+import NoteForm from './components/noteForm';
 function App() {
   return (
     <div className="App">
       <div>
         <Header/>
         <Switch>
-          <Route path="/" exact>
+          <Route path="/notes-app" exact>
             <Login/>
           </Route>
-          <Route path="/register" exact>
+          <Route path="/notes-app/register" exact>
             <Register/>
           </Route>
-          <Route path="/notesMain" exact>
+          <Route path="/notes-app/notesMain" exact>
             <NotesMain/>
           </Route>
-          <Route path="/notesMain/addNote" exact>
-            <AddNote/>
+          <Route path="/notes-app/notesMain/addNote" exact>
+            <NoteForm/>
           </Route>
-          <Route path="/notesMain/editNote" exact >
-            <AddNote/>
+          <Route path="/notes-app/notesMain/editNote" exact >
+            <NoteForm/>
           </Route>
           <Route>
             <Error404/>
