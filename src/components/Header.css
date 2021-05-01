@@ -1,5 +1,5 @@
 
-.header .MuiInputBase-input {
+/*.header .MuiInputBase-input {
 	padding: 8px 8px 8px 0px;
 	transition: width 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
 	padding-left: calc(1em + 32px);
@@ -39,18 +39,34 @@
 	align-items: center;
 	pointer-events: none;
 	justify-content: center;
-}
+}*/
 
-.flex-test {
+/*.flex-test {
 	width: 100%;
 	display: flex;
 	flex-direction: row;
 	justify-content: flex-end;
 	height: 100%;
+}*/
+
+/*.box {
+	width: 100%;
+}*/
+
+.flex {
+	display: flex;
+	/*align-items: center;*/
 }
 
-.box {
-	width: 100%;
+.distance {
+	margin-bottom: 2%;
+	margin-right: 0%
+}
+
+.header-class{
+	display: flex;
+	justify-content: flex-start;
+	width:50%
 }
 
 

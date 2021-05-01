@@ -2,10 +2,16 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { useState } from 'react';
 import { useHistory } from 'react-router';
+import { useDispatch, useSelector } from 'react-redux';
+import setToken, { setUsername } from '../userActions';
 export default function Login() {
 
     const [isLoading, setIsLoading] = useState(false);
     const history = useHistory();
+    const dispatch = useDispatch();
+    const userSelector = useSelector((state) => {
+		return state.user.username;
+	})
     const [values, setValues] = useState({
         username: "",
         password: ""
@@ -50,7 +56,7 @@ export default function Login() {
                 method:'POST',
                 body: JSON.stringify(values),
                 headers: {
-                    'Content-Type' : 'application/json',
+                    'Content-Type' : 'application/json'
                     //'Access-Control-Allow-Origin': '*',
                     //'Access-Control-Allow-Methods': 'POST',
                     //'Access-Control-Allow-Headers': 'Content-Type'
@@ -58,10 +64,24 @@ export default function Login() {
 
 
         })
-        const dataJson = await response;
-        console.log(dataJson);
+
+        //console.log("let's print response before await " + response);
+        //console.log("body is " + response.body);
+        //console.log("headers are " + response.headers);
+        const data = await response.json();
+        console.log(data);
         setIsLoading(false);
-        history.push("/welcome");
+        //if unauthorized
+        if (response.status == 401) {
+            alert("Incorrect username/password. Please try again.")
+            return;
+        }
+        console.log(data.username);
+
+        //putting in the store the username and token
+        dispatch(setUsername(data.username))
+        dispatch(setToken(data.token))
+        history.push("/notesMain");
 
     }
 
@@ -75,22 +95,22 @@ export default function Login() {
 
     return (
         <div>
-            <h1>login</h1>
+            <h1>Login</h1>
         <form noValidate onSubmit={handleSubmit}>
             <div>
                 <TextField
                 error={errors.username}
                 value={values.username}
                 label= {errors.username? "Error" : "Enter your username"}
-                type="username"
+                type="text"
                 name="username"
                 onChange={handleChange}
                 helperText={errors.username}
 
                     />
             </div>
-            <div>
-                <TextField
+            <div className="form-button-margin">
+                <TextField 
                 error={errors.password}
                 value={values.password}
                 label= {errors.password? "Error" : "Enter your password"}
@@ -100,7 +120,8 @@ export default function Login() {
                 helperText={errors.password}
                 />
             </div>
-            <Button
+            <div>
+            <Button 
 
             color="primary"
             variant="contained"
@@ -109,6 +130,7 @@ export default function Login() {
             >
                 Submit
             </Button>
+            </div>
         </form>
         </div>
     )

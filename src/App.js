@@ -6,6 +6,8 @@ import Login from './pages/Login';
 import  { Route, Switch } from 'react-router-dom';
 import Register from './pages/Register';
 import Error404 from './pages/Error404';
+import NotesMain from './pages/notesMain';
+import AddNote from './pages/addNote';
 function App() {
   return (
     <div className="App">
@@ -17,6 +19,15 @@ function App() {
           </Route>
           <Route path="/register" exact>
             <Register/>
+          </Route>
+          <Route path="/notesMain" exact>
+            <NotesMain/>
+          </Route>
+          <Route path="/notesMain/addNote" exact>
+            <AddNote/>
+          </Route>
+          <Route path="/notesMain/editNote" exact >
+            <AddNote/>
           </Route>
           <Route>
             <Error404/>

@@ -3,6 +3,6 @@
 export default function Error404() {
 
     return (
-        <h1> this is an error page</h1>
+        <h1> Error, this page does not exist</h1>
     )
 }

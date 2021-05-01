@@ -1,16 +1,19 @@
-import {BottomNavigation} from '@material-ui/core';
+import {BottomNavigation, Box} from '@material-ui/core';
+import './Footer.css';
 export default function Footer() {
     return (
-        <footer className= "bg-light">
+        <Box className="flexbox">
+            {/*
+        <footer >
             <div>
-                Hello Footer <br></br>
                 Created by Eviatar Natan
                 <ul>
                     <li> You can see my other projects here: <a href = "https://github.com/eviatarnatan"> GitHub</a></li>
                     <li> My Linkedin: <a href = "https://www.linkedin.com/in/eviatarnatan/">Profile</a></li>
                 </ul>
             </div>
-         </footer>
+            </footer>*/}
+         </Box>
     )
 
     

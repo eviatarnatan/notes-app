@@ -1,0 +1,26 @@
+.form {
+    width: 25%;
+}
+
+ul {
+    list-style-type: none;
+}
+
+.div-distance {
+    margin-bottom: 1%;
+    margin-right: 0%;
+}
+
+.list-class{
+    max-height: 100%;
+    overflow: auto;
+}
+
+.form-button-margin{
+    margin-bottom: 1%;
+}
+.button-change{
+    text-transform: none;
+}
+
+

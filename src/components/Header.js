@@ -20,18 +20,20 @@ export default function Header() {
 	}
 	
 	return (
-		<AppBar position="static" className="header">
-        	<Toolbar className="d-flex justify-content-between">
-				<nav>
-					<Box className="box">
-					<ul className="flex-test">
-						<li className="nav-item">
-							<Link className="nav-link active text-white" to="/">
+		<header>
+			<div className= "distance">
+		<AppBar position="static" className="header-class">
+        	<Toolbar>
+				<nav className="header-class">
+					<Box className="flex" >
+					<ul className="header-class">
+						<li >
+							<Link to="/">
 								Home
 							</Link>
 						</li>
-						<li className="nav-item">
-							<Link className="nav-link text-white" to="/register">
+						<li>
+							<Link to="/register">
 								Register
 							</Link>
 						</li>
@@ -40,6 +42,8 @@ export default function Header() {
 				</nav>
 			</Toolbar>
 		</AppBar>
+		</div>
+		</header>
 		
 	)
 }
