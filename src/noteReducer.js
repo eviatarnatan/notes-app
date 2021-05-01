@@ -1,4 +1,5 @@
 export default function noteReducer(state = {
+    id: null,
     title: null,
     body: null,
     priority: null,
@@ -6,6 +7,12 @@ export default function noteReducer(state = {
     isRead: null
 }, action) {
     switch(action.type) {
+
+        case "SET_ID":
+            return {
+                ...state,
+                id: action.payload
+            }
         case "SET_TITLE": 
             return {
             ...state,

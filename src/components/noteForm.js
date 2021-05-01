@@ -20,8 +20,9 @@ export default function NoteForm(param) {
     const token = useSelector((state) => {
         return state.user.token;
     });
-
+    const currentPath = window.location.pathname;
     const title = useSelector((state) => {
+        console.log("Hi, I'm inside")
 		return state.note.title;
 	})
     const body = useSelector((state) => {
@@ -36,6 +37,10 @@ export default function NoteForm(param) {
     const isRead = useSelector((state) => {
 		return state.note.isRead;
 	})
+
+    const id = useSelector((state) => {
+        return state.note.id;
+    })
     //for testing
     const dispatch = useDispatch();
     //dispatch(setToken("-1591360440"));
@@ -45,6 +50,7 @@ export default function NoteForm(param) {
 
 
     const [values, setValues] = useState({
+        id: id,
         title: title,
         body: body,
         color: color,
@@ -60,6 +66,7 @@ export default function NoteForm(param) {
     })
 
     //console.log("The color is " + values.color);
+    console.log("the id is " + values.id);
     console.log("the title is " + values.title);
     console.log("the body is " + values.body);
     console.log("the color is " + values.color);
@@ -72,8 +79,9 @@ export default function NoteForm(param) {
         })
     }
 
-    const handleSubmit = async(event) => {
+    const handleAdd = async(event) => {
         event.preventDefault();
+        console.log("we are going to add");
         let isValid = true;
         let newErrors = {title: null, body: null};
         if(!values.title) {
@@ -115,7 +123,7 @@ export default function NoteForm(param) {
 
     const handleUpdate = async(event) => {
         event.preventDefault();
-
+        console.log("We are going to update");
         let isValid = true;
         let newErrors = {title: null, body: null};
         if(!values.title) {
@@ -152,7 +160,7 @@ export default function NoteForm(param) {
     return (
 
         <div>
-            <form noValidate onSubmit={handleSubmit} >
+            <form noValidate onSubmit={currentPath.includes("addNote")? handleAdd : handleUpdate} >
                 <div className="div-distance">
                     <TextField className="form"
                     error={errors.title}

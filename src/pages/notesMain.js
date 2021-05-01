@@ -8,7 +8,7 @@ import { useHistory, useLocation } from "react-router";
 import InboxIcon from '@material-ui/icons/Inbox';
 import DraftsIcon from '@material-ui/icons/Drafts';
 import './formStyle.css';
-import setNoteDetails, { setBody, setColor, setIsRead, setPriority } from "../noteActions";
+import setNoteDetails, { setBody, setColor, setId, setIsRead, setPriority } from "../noteActions";
 import setTitle from "../noteActions";
 
 
@@ -83,6 +83,7 @@ export default function NotesMain() {
     const handleAddNote = () => {
       console.log("Add me!");
       //removing note details, to be able to add a new note
+      noteDispatch(setId(""));
       noteDispatch(setTitle(""));
       noteDispatch(setBody(""));
       noteDispatch(setPriority(""));
@@ -94,6 +95,7 @@ export default function NotesMain() {
     const handleEditNote = (noteItem) => {
       console.log("Edit me!");
       //saving to state note details, to be able to display them when editing the note
+      noteDispatch(setId(noteItem.id))
       noteDispatch(setTitle(noteItem.title));
       noteDispatch(setBody(noteItem.body));
       noteDispatch(setPriority(noteItem.priority));

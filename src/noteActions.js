@@ -28,3 +28,9 @@ export function setIsRead(isRead) {
         payload: isRead
     }
 }
+export function setId(id) {
+    return {
+        type: "SET_ID",
+        payload: id
+    }
+}
