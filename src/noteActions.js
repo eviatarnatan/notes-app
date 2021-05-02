@@ -22,9 +22,9 @@ export function setColor(color) {
         payload: color
     }
 }
-export function setIsRead(isRead) {
+export function setReadFlag(isRead) {
     return {
-        type: "SET_IS_READ",
+        type: "SET_READ_FLAG",
         payload: isRead
     }
 }
@@ -32,5 +32,11 @@ export function setId(id) {
     return {
         type: "SET_ID",
         payload: id
+    }
+}
+export function setIcon(icon) {
+    return {
+        type: "SET_ICON",
+        payload: icon
     }
 }

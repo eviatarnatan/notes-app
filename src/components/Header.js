@@ -8,11 +8,16 @@ import Button from '@material-ui/core/Button';
 import { useHistory } from 'react-router-dom';
 import { useState } from 'react';
 import Box from '@material-ui/core/Box';
+import { useSelector } from 'react-redux';
 
 
 export default function Header() {
 	const history = useHistory();
 	const [searchValue, setSearchValue] = useState('');
+
+	const token = useSelector((state) => {
+        return state.user.token;
+    });
 	
 	const navigateToDo = (event) => {
 		event.preventDefault();

@@ -8,7 +8,7 @@ import { useHistory, useLocation } from "react-router";
 import InboxIcon from '@material-ui/icons/Inbox';
 import DraftsIcon from '@material-ui/icons/Drafts';
 import './formStyle.css';
-import setNoteDetails, { setBody, setColor, setId, setIsRead, setPriority } from "../noteActions";
+import setNoteDetails, { setBody, setColor, setIcon, setId, setReadFlag, setPriority } from "../noteActions";
 import setTitle from "../noteActions";
 
 
@@ -88,7 +88,8 @@ export default function NotesMain() {
       noteDispatch(setBody(""));
       noteDispatch(setPriority(""));
       noteDispatch(setColor(""));
-      noteDispatch(setIsRead(""));
+      noteDispatch(setReadFlag(false));
+      noteDispatch(setIcon(""));
         history.push("/notes-app/notesMain/addNote");
     }
 
@@ -100,7 +101,9 @@ export default function NotesMain() {
       noteDispatch(setBody(noteItem.body));
       noteDispatch(setPriority(noteItem.priority));
       noteDispatch(setColor(noteItem.color));
-      noteDispatch(setIsRead(noteItem.isRead));
+      noteDispatch(setReadFlag(noteItem.readFlag));
+      noteDispatch(setIcon(noteItem.icon));
+      console.log("before going to edit, read status is: " + Object.keys(noteItem));
       history.push("/notes-app/notesMain/editNote");
     }
 

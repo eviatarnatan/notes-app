@@ -4,7 +4,8 @@ export default function noteReducer(state = {
     body: null,
     priority: null,
     color: null,
-    isRead: null
+    readFlag: null,
+    icon: null
 }, action) {
     switch(action.type) {
 
@@ -33,10 +34,15 @@ export default function noteReducer(state = {
             ...state,
             color: action.payload
             }
-        case "SET_IS_READ": 
+        case "SET_READ_FLAG": 
             return {
             ...state,
-            isRead: action.payload
+            readFlag: action.payload
+            }
+        case "SET_ICON":
+            return {
+            ...state,
+            icon: action.payload
             }
         default:
             return state;

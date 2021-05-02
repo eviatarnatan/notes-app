@@ -1,9 +1,14 @@
-import { Button, Checkbox, FormControl, FormControlLabel, FormHelperText, FormLabel, InputLabel, makeStyles, MenuItem, NativeSelect, Radio, RadioGroup, Select, TextField } from "@material-ui/core"
+import { Button, Checkbox, FormControl, FormControlLabel, FormGroup, FormHelperText, FormLabel, InputLabel, makeStyles, MenuItem, NativeSelect, Radio, RadioGroup, Select, Switch, TextField } from "@material-ui/core"
 import { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useHistory } from "react-router";
 import setToken from "../userActions";
 import '../pages/formStyle.css';
+import MusicNoteIcon from '@material-ui/icons/MusicNote';
+import CallIcon from '@material-ui/icons/Call';
+import PlaceIcon from '@material-ui/icons/Place';
+import PriorityHighIcon from '@material-ui/icons/PriorityHigh';
+import ScheduleIcon from '@material-ui/icons/Schedule';
 
 const useStyles = makeStyles((theme) => ({
     formControl: {
@@ -32,14 +37,18 @@ export default function NoteForm(param) {
 		return state.note.priority;
 	})
     const color = useSelector((state) => {
+        console.log("blabla color")
 		return state.note.color;
 	})
-    const isRead = useSelector((state) => {
-		return state.note.isRead;
+    const readFlag = useSelector((state) => {
+		return state.note.readFlag;
 	})
 
     const id = useSelector((state) => {
         return state.note.id;
+    })
+    const icon = useSelector((state) => {
+        return state.note.icon;
     })
     //for testing
     const dispatch = useDispatch();
@@ -55,7 +64,8 @@ export default function NoteForm(param) {
         body: body,
         color: color,
         priority: priority,
-        isRead: isRead
+        readFlag: readFlag,
+        icon: icon
     })
 
 
@@ -66,16 +76,25 @@ export default function NoteForm(param) {
     })
 
     //console.log("The color is " + values.color);
+    console.log("the icon is " + values.icon);
     console.log("the id is " + values.id);
     console.log("the title is " + values.title);
     console.log("the body is " + values.body);
     console.log("the color is " + values.color);
     console.log("the priority is " + values.priority);
-    console.log("the read status is " + values.isRead);
+    console.log("the read status is " + values.readFlag);
     const handleChange = (event) => {
         setValues({
             ...values,
             [event.target.name]: event.target.value
+        })
+        console.log("am i handling this icon change?:" + values.icon);
+        console.log("am i handling this read change?:" + values.readFlag);
+    }
+    const handleCheckChange = (event) => {
+        setValues({
+           ...values,
+            [event.target.name]: event.target.checked
         })
     }
 
@@ -123,7 +142,10 @@ export default function NoteForm(param) {
 
     const handleUpdate = async(event) => {
         event.preventDefault();
+        //const readFlag = values.isRead? 1 : 0;
+        console.log("the values before update are: " + Object.values(values));
         console.log("We are going to update");
+        console.log(values.readFlag);
         let isValid = true;
         let newErrors = {title: null, body: null};
         if(!values.title) {
@@ -157,6 +179,8 @@ export default function NoteForm(param) {
         history.push("../notesMain");
 
     }
+
+    //cost[readit, setRead] = useState("false")
     return (
 
         <div>
@@ -185,7 +209,7 @@ export default function NoteForm(param) {
                     type="text"
                     name="body"
                     multiline 
-                    rows="15"
+                    rows="13"
                     color="primary"
                     variant="outlined"
                     />
@@ -228,17 +252,84 @@ export default function NoteForm(param) {
         </Select>
       </FormControl>
             </div>
+            
+
+           {/* <div>
+
+            <FormGroup row>
+      <FormControlLabel
+        control={
+          <Switch
+            checked={values.isRead}
+            onChange={handleChange}
+            name="isRead"
+            color="primary"
+          />
+        }
+        label="Read"
+      />
+    </FormGroup>
+
+    </div>*/}
+
 
             <div>
-                Read Flag
-                <Checkbox
+            <FormControl component="fieldset">
+      <FormLabel component="legend">Icon</FormLabel>
+      <RadioGroup row aria-label="position" name="icon" value= {values.icon} onChange={handleChange}>
+        <FormControlLabel
+          value="call"
+          control={<Radio color="primary" />}
+          label={<CallIcon></CallIcon>}
+          labelPlacement="start"
+        />
+        <FormControlLabel
+          value="place"
+          control={<Radio color="primary" />}
+          label={<PlaceIcon></PlaceIcon>}
+          labelPlacement="start"
+        />
+        <FormControlLabel
+          value="highPriority"
+          control={<Radio color="primary" />}
+          label={<PriorityHighIcon></PriorityHighIcon>}
+          labelPlacement="start"
+        />
+               <FormControlLabel
+          value="schedule"
+          control={<Radio color="primary" />}
+          label={<ScheduleIcon></ScheduleIcon>}
+          labelPlacement="start"
+        />
+        <FormControlLabel
+          value="musicNote"
+          control={<Radio color="primary" />}
+          label={<MusicNoteIcon></MusicNoteIcon>}
+          labelPlacement="start"
+        />
+      </RadioGroup>
+    </FormControl>
+
+            </div>
+
+            <div>
+                Read
+                <Checkbox value={values.readFlag}
                 color="primary"
-                value={values.isRead}
-                onChange={handleChange}
+                //value={values.isRead}
+                onChange={handleCheckChange}
+                label="Read"
+                checked= {values.readFlag} //{values.isRead? true: false}
+                inputProps = {{
+                    name: "readFlag",
+                    id: "readFlag"
+                }}
                 >
                     
                 </Checkbox>
             </div>
+
+
             <div>
                 <Button className="form"
                 color= "primary"
