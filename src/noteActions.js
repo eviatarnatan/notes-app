@@ -22,10 +22,10 @@ export function setColor(color) {
         payload: color
     }
 }
-export function setReadFlag(isRead) {
+export function setReadFlag(readFlag) {
     return {
         type: "SET_READ_FLAG",
-        payload: isRead
+        payload: readFlag
     }
 }
 export function setId(id) {

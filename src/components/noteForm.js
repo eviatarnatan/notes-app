@@ -142,7 +142,6 @@ export default function NoteForm(param) {
 
     const handleUpdate = async(event) => {
         event.preventDefault();
-        //const readFlag = values.isRead? 1 : 0;
         console.log("the values before update are: " + Object.values(values));
         console.log("We are going to update");
         console.log(values.readFlag);
@@ -329,7 +328,7 @@ export default function NoteForm(param) {
                 </Checkbox>
             </div>
 
-
+            
             <div>
                 <Button className="form"
                 color= "primary"

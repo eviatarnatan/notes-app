@@ -60,13 +60,29 @@
 
 .distance {
 	margin-bottom: 2%;
-	margin-right: 0%
+	margin-right: 0%;
+	/*display: inline; caused problem with form*/
 }
 
 .header-class{
 	display: flex;
 	justify-content: flex-start;
-	width:50%
+	width:100%
+}
+
+.header-list-item{
+	margin-right:2em;
+	padding-right:0.8em;
+	font-size: 1em;
+	justify-content: flex-start;
+	display:flex;
+	
+}
+
+.link{
+	text-decoration: none;
+	color:white;
+	
 }
 
 

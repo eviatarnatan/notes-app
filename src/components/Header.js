@@ -8,13 +8,35 @@ import Button from '@material-ui/core/Button';
 import { useHistory } from 'react-router-dom';
 import { useState } from 'react';
 import Box from '@material-ui/core/Box';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import setToken, { setUsername } from '../userActions';
 
+
+export async function logout(token, logoutDispatch) {
+	console.log("token to sent for logout: " + token);
+	const response = await fetch (
+		'http://localhost:8080/usersManager/logout', 
+		{
+			method:'POST',
+			headers: {
+				'Content-Type' : 'application/json',
+				'Authorization': `Bearer ${token}`
+				//'Access-Control-Allow-Origin': '*',
+				//'Access-Control-Allow-Methods': 'POST',
+				//'Access-Control-Allow-Headers': 'Content-Type'
+			}
+
+	})
+	//const data = response.json();
+	logoutDispatch(setToken(null));
+	logoutDispatch(setUsername(null));
+
+
+}
 
 export default function Header() {
 	const history = useHistory();
 	const [searchValue, setSearchValue] = useState('');
-
 	const token = useSelector((state) => {
         return state.user.token;
     });
@@ -23,6 +45,7 @@ export default function Header() {
 		event.preventDefault();
 		history.push(`/todo?search=${searchValue}`);
 	}
+	const logoutDispatch = useDispatch();
 	
 	return (
 		<header>
@@ -32,14 +55,20 @@ export default function Header() {
 				<nav className="header-class">
 					<Box className="flex" >
 					<ul className="header-class">
-						<li >
-							<Link to="/notes-app">
-								Home
+						<li className="header-list-item">
+							
+							<Link to={!token? "/notes-app" : "/notes-app/notesMain"} className="link">
+								<span>Home</span>
 							</Link>
 						</li>
-						<li>
-							<Link to="/notes-app/register">
-								Register
+						<li className= "header-list-item">
+							<Link to="/notes-app/register" className="link">
+							<span>Register</span>
+							</Link>
+						</li>
+						<li className= "header-list-item">
+							<Link to= "/notes-app" onClick={() => logout(token, logoutDispatch)} className="link">
+							{token?<span>Logout</span> : null}
 							</Link>
 						</li>
 					</ul>

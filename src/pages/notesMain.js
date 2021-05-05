@@ -34,6 +34,9 @@ export default function NotesMain() {
     const token = useSelector((state) => {
         return state.user.token;
     })
+    const username = useSelector((state) => {
+      return state.user.username;
+    })
     //const [notes, setNotes] = useState();
     //for fetching the user's notes
     //"http://localhost:8080/notesManager/getnotes"
@@ -52,6 +55,7 @@ export default function NotesMain() {
         }
         );
         const notesList = await response.json();
+        console.log(notesList[0])
         //console.log("Notes title is: " + notesList[0].title);
         //console.log("Notes title is: " + notesList[1].title);
         setNotesList(notesList);
@@ -109,14 +113,15 @@ export default function NotesMain() {
 
     useEffect(
         () => {
-            console.log("Am I here?");
             if (!token) return;
-            console.log("Am I there?")
             loadNotes();
         },
         [token, ]
     )
     return (
+      <div>
+        <h1> welcome, {username}</h1>
+      
         <div className="list-class">
             <ul className="list-class">
             {
@@ -126,11 +131,11 @@ export default function NotesMain() {
                         <li>
                           <Button onClick={() => {handleEditNote(noteItem)}}
                           >
-                        <h1 className="button-change">
+                        <h3 className="button-change">
                             {
                                 noteItem.title
                             }
-                        </h1>
+                        </h3>
                         </Button>
                         <IconButton onClick={() => {handleDeleteNote(noteItem)}}>
                             <DeleteIcon></DeleteIcon>
@@ -141,7 +146,7 @@ export default function NotesMain() {
                 })
             }
             </ul> 
-        
+            <div className="add-class">
             <IconButton
              onClick = {() => {handleAddNote()}}
              color= "primary"
@@ -152,32 +157,10 @@ export default function NotesMain() {
             >
             </AddIcon>
             </IconButton>
-            
-           {/*} <div className={classes.root}>
-      <List component="nav" aria-label="main mailbox folders">
-        <ListItem button>
-          <ListItemIcon>
-            <InboxIcon />
-          </ListItemIcon>
-          <ListItemText primary="Inbox" />
-        </ListItem>
-        <ListItem button>
-          <ListItemIcon>
-            <DraftsIcon />
-          </ListItemIcon>
-          <ListItemText primary="Drafts" />
-        </ListItem>
-      </List>
-      <Divider />
-      <List component="nav" aria-label="secondary mailbox folders">
-        <ListItem button>
-          <ListItemText primary="Trash" />
-        </ListItem>
-        <ListItemLink href="#simple-list">
-          <ListItemText primary="Spam" />
-        </ListItemLink>
-      </List>
-        </div>*/}
+            </div>
+
+        </div>
+
         </div>
     )
 }

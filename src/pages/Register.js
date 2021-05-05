@@ -1,11 +1,15 @@
 import { Button, TextField } from "@material-ui/core"
 import { useState } from "react"
+import { useSelector } from "react-redux";
 import { useHistory } from 'react-router';
 
 export default function Register() {
 
     const [isLoading, setIsLoading] = useState();
     const history = useHistory();
+    const token = useSelector((state) => {
+        return state.user.token;
+    })
     const [values, setValues] = useState( {
         username: "",
         password: ""
@@ -25,6 +29,14 @@ export default function Register() {
             newErrors = {
                 ...newErrors,
                 username: "username is empty"
+            }
+        }
+
+        if (values.username.length >20) {
+            isValid = false;
+            newErrors = {
+                ...newErrors,
+                username: "no more than 20 characters"
             }
         }
 
@@ -79,7 +91,8 @@ export default function Register() {
         alert("Registered Successfuly!");
         //var token = dataJson.token;
         //console.log("let's try to pring the token " + token);
-        history.push("/notes-app");
+        const path = token? "/notes-app/notesMain" : "/notes-app"
+        history.push(path);
 
     }
 
