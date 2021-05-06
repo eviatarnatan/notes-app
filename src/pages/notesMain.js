@@ -1,36 +1,20 @@
 import { useDispatch, useSelector } from "react-redux"
 import AddIcon from '@material-ui/icons/Add';
-import { Button, Container, Divider, IconButton, List, ListItem, ListItemIcon, ListItemText, makeStyles } from "@material-ui/core";
+import { Button, IconButton, ListItem, makeStyles } from "@material-ui/core";
 import DeleteIcon from '@material-ui/icons/Delete';
 import { useEffect, useState } from "react";
-import NoteForm from "../components/noteForm";
 import { useHistory, useLocation } from "react-router";
-import InboxIcon from '@material-ui/icons/Inbox';
-import DraftsIcon from '@material-ui/icons/Drafts';
 import './formStyle.css';
-import setNoteDetails, { setBody, setColor, setIcon, setId, setReadFlag, setPriority } from "../noteActions";
+import { setBody, setColor, setIcon, setId, setReadFlag, setPriority } from "../noteActions";
 import setTitle from "../noteActions";
 
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-      width: '100%',
-      maxWidth: 360,
-      backgroundColor: theme.palette.background.paper,
-    },
-  }));
-  
-  function ListItemLink(props) {
-    return <ListItem button component="a" {...props} />;
-  }
 export default function NotesMain() {
-    const classes = useStyles();
     
     //getting the token from the reducer
     const [notesList, setNotesList] = useState([])
     const history = useHistory();
     const noteDispatch = useDispatch();
-    const location = useLocation();
     const token = useSelector((state) => {
         return state.user.token;
     })

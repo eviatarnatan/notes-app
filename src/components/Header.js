@@ -1,12 +1,7 @@
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import { Link } from 'react-router-dom';
-import InputBase from '@material-ui/core/InputBase';
-import SearchIcon from '@material-ui/icons/Search';
 import './Header.css';
-import Button from '@material-ui/core/Button';
-import { useHistory } from 'react-router-dom';
-import { useState } from 'react';
 import Box from '@material-ui/core/Box';
 import { useDispatch, useSelector } from 'react-redux';
 import setToken, { setUsername } from '../userActions';
@@ -28,23 +23,24 @@ export async function logout(token, logoutDispatch) {
 
 	})
 	//const data = response.json();
-	logoutDispatch(setToken(null));
-	logoutDispatch(setUsername(null));
+	if (response.status === 401) {
+		console.log("unauthorized, there was an error with the token");
+	}
+	else {
+		console.log("logout success!");
+		logoutDispatch(setToken(null));
+		logoutDispatch(setUsername(null));
+
+	}
 
 
 }
 
 export default function Header() {
-	const history = useHistory();
-	const [searchValue, setSearchValue] = useState('');
 	const token = useSelector((state) => {
         return state.user.token;
     });
 	
-	const navigateToDo = (event) => {
-		event.preventDefault();
-		history.push(`/todo?search=${searchValue}`);
-	}
 	const logoutDispatch = useDispatch();
 	
 	return (

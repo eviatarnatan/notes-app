@@ -1,8 +1,7 @@
-import { Button, Checkbox, FormControl, FormControlLabel, FormGroup, FormHelperText, FormLabel, InputLabel, makeStyles, MenuItem, NativeSelect, Radio, RadioGroup, Select, Switch, TextField } from "@material-ui/core"
+import { Button, Checkbox, FormControl, FormControlLabel, FormLabel, InputLabel, makeStyles, Radio, RadioGroup, Select, TextField } from "@material-ui/core"
 import { useState } from "react"
-import { useDispatch, useSelector } from "react-redux"
+import { useSelector } from "react-redux"
 import { useHistory } from "react-router";
-import setToken from "../userActions";
 import '../pages/formStyle.css';
 import MusicNoteIcon from '@material-ui/icons/MusicNote';
 import CallIcon from '@material-ui/icons/Call';
@@ -50,9 +49,6 @@ export default function NoteForm(param) {
     const icon = useSelector((state) => {
         return state.note.icon;
     })
-    //for testing
-    const dispatch = useDispatch();
-    //dispatch(setToken("-1591360440"));
 
     const history = useHistory();
     //end for testing
@@ -251,25 +247,6 @@ export default function NoteForm(param) {
         </Select>
       </FormControl>
             </div>
-            
-
-           {/* <div>
-
-            <FormGroup row>
-      <FormControlLabel
-        control={
-          <Switch
-            checked={values.isRead}
-            onChange={handleChange}
-            name="isRead"
-            color="primary"
-          />
-        }
-        label="Read"
-      />
-    </FormGroup>
-
-    </div>*/}
 
 
             <div>

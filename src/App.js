@@ -1,14 +1,18 @@
-import logo from './logo.svg';
 import './App.css';
 import Footer from './components/Footer';
 import Header from './components/Header';
 import Login from './pages/Login';
-import  { Route, Switch } from 'react-router-dom';
+import  { Redirect, Route, Switch } from 'react-router-dom';
 import Register from './pages/Register';
 import Error404 from './pages/Error404';
 import NotesMain from './pages/notesMain';
 import NoteForm from './components/noteForm';
+import { useSelector } from 'react-redux';
 function App() {
+
+  const token = useSelector((state) => {
+    return state.user.token;
+})
   return (
     <div className="App">
       <div>
@@ -21,13 +25,13 @@ function App() {
             <Register/>
           </Route>
           <Route path="/notes-app/notesMain" exact>
-            <NotesMain/>
+            {token? <NotesMain/> : <Redirect to="/notes-app"/>}
           </Route>
           <Route path="/notes-app/notesMain/addNote" exact>
-            <NoteForm/>
+            {token? <NoteForm/> : <Redirect to="/notes-app" /> }
           </Route>
           <Route path="/notes-app/notesMain/editNote" exact >
-            <NoteForm/>
+            {token? <NoteForm/> : <Redirect to="/notes-app" /> } 
           </Route>
           <Route>
             <Error404/>

@@ -2,16 +2,13 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { useState } from 'react';
 import { useHistory } from 'react-router';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import setToken, { setUsername } from '../userActions';
 export default function Login() {
 
     const [isLoading, setIsLoading] = useState(false);
     const history = useHistory();
     const dispatch = useDispatch();
-    const userSelector = useSelector((state) => {
-		return state.user.username;
-	})
     const [values, setValues] = useState({
         username: "",
         password: ""
@@ -72,12 +69,13 @@ export default function Login() {
         console.log(data);
         setIsLoading(false);
         //if unauthorized
-        if (response.status == 401) {
+        if (response.status === 401) {
             alert("Incorrect username/password. Please try again.")
             return;
         }
         console.log(data.username);
 
+        
         //putting in the store the username and token
         dispatch(setUsername(data.username))
         dispatch(setToken(data.token))
